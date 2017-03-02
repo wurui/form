@@ -1,0 +1,6 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "apiDependencies": ["form"]
+}
+
