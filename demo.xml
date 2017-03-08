@@ -1,34 +1,51 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="demo.xsl"?>
 <root>
-  <env>
-    <domain>local</domain>
-  </env>
-  <p>
-    <title>demo page</title>
-    <desc>this is deme page</desc>
-    <owner>openxsl</owner>
-    <icon>//oxm1.cc/img/app_default.png</icon>
-  </p>
-  <data>
+    <env>
+        <domain>local</domain>
+    </env>
+    <p>
+        <title>demo page</title>
+        <desc>this is deme page</desc>
+        <owner>openxsl</owner>
+        <icon>//oxm1.cc/img/app_default.png</icon>
+    </p>
+    <data>
         <form>
-        <fields>
-            <i>
-                <name>
-                    car
-                </name>
-                <type>
-                    number
-                </type>
-            </i>
-        </fields>
-        <action>
-            //oxm1.cc/img/fox.jpg
-        </action>
-        <method>
-            post
-        </method>
-    </form>
-  </data>
+            <fields>
+                <i>
+                    <name>id</name>
+                    <type>hidden</type>
+                </i>
+                <i>
+                    <label>称呼</label>
+                    <name>name</name>
+                    <type>text</type>
+                </i>
+                <i>
+                    <label>理由</label>
+                    <name>reason</name>
+                    <type>select</type>
+                    <options>
+                        <i>挡路</i>
+                        <i>交通事故</i>
+                        <i>门窗未关</i>
+                        <i>其它</i>
+                    </options>
+                </i>
+                <i>
+                    <label>Upload an image</label>
+                    <name>images</name>
+                    <type>file</type>
+                </i>
+            </fields>
+            <action>
+                //oxm1.cc/img/fox.jpg
+            </action>
+            <method>
+                post
+            </method>
+        </form>
+    </data>
 
 </root>

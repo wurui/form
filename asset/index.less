@@ -1,0 +1,118 @@
+.oxmod-form{
+  /* CSS */
+  ul{
+    padding:10px 15px;
+  }
+
+  select,input,button{
+    width:100%;
+    height:30px;
+    border:solid 1px #ccc;
+    border-radius: 5px;
+    font-size:14px;
+  }
+  input{
+    padding:2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  input[type=file]::-webkit-file-upload-button{
+    background-color: transparent;
+    border:none;
+    height:24px;
+    line-height: 24px;
+  }
+  select{
+    width:100%;
+  }
+  .submit{
+    width:100%;
+  }
+  .label{
+    font-size:12px;
+    color:#999;
+  }
+  li{
+    margin:10px 0;
+  }
+  li.type-hidden{
+    display: none;
+  }
+  li.bottom{
+    margin-top:20px;
+    button{
+      background-color: #09C;
+      border-color:#09f;
+      color:#fff;
+      letter-spacing: 5px;
+      &:hover{
+        opacity: .8;
+      }
+    }
+  }
+  .btn-x{
+    position: absolute;
+    width:30px;
+    height: 30px;
+    font-size:30px;
+    line-height: 30px;
+    text-align: center;
+    color:red;
+    right:-5px;
+    top:-5px;
+    font-weight: 400;
+    //background-color: rgba(0,0,0,.5);
+    //border-radius: 50%;
+  }
+  .imgupload-combo{
+    /*
+      flex-wrap:wrap;
+      display: flex;
+      justify-content: space-between;
+      */
+  }
+  .input-file-trigger,
+  .imgpreview{
+    display: inline-block;
+    position: relative;
+    width:30%;
+    height:0px;
+    padding-bottom: 30%;
+    border:solid 2px #dcdcdc;
+    text-align: center;
+    //box-sizing: border-box;
+    //-webkit-box-sizing: border-box;
+    color:#999;
+    font-size:0;
+    vertical-align: top;
+    margin-left:8px;
+    margin-bottom: 8px;
+    &:nth-child(3n+1){
+      margin-left:0;
+    }
+  }
+  .imgpreview{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+  }
+  .input-file-trigger{
+    text-align: center;
+    &:before{
+      content: '+';
+      font-size:50px;
+      width:50px;
+      height:50px;
+      text-align: center;
+      line-height: 50px;
+
+      left:50%;
+      top:50%;
+      margin-top:-25px;
+      margin-left:-25px;
+      position: absolute;
+      //display: block;
+      //position: absolute;
+    }
+  }
+ }
