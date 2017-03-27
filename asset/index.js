@@ -1,4 +1,4 @@
-define(['oxjs','mustache','oxm/wurui/image-uploader/0.0.2/asset/main'],function(OXJS,Mustache,Uploader){
+define(['oxjs','mustache','oxm/wurui/image-uploader/0.0.3/asset/main'],function(OXJS,Mustache,Uploader){
     var tpl_imgfile='<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
         init:function($mod){
