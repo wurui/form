@@ -11,7 +11,7 @@
                         <li class="type-{type}">
                             <xsl:choose>
                                 <xsl:when test="type = 'select'">
-                                    <select>
+                                    <select name="{name}">
                                         <option value="">选择<xsl:value-of select="label"/>...
                                         </option>
                                         <xsl:for-each select="options/i">
