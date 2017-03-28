@@ -7,7 +7,7 @@
 
         <div class="J_OXMod oxmod-form" ox-mod="form" data-forwardurl="{$forward_url}">
             <form method="{normalize-space($form/method)}" action="{normalize-space($form/action)}">
-                <xsl:if test="$form/ajax">
+                <xsl:if test="boolean($form/ajax)">
                     <xsl:attribute name="data-ajax">true</xsl:attribute>
                 </xsl:if>
                 <xsl:if test="q/_id">

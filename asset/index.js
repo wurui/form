@@ -7,6 +7,10 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                 sid: '2JOWSNPZMIYYV24GGI0YX13L',
                 oxm: $mod.attr('ox-mod')
             };
+            $.post('/login/templogin',{selector:"{}"},function(r){
+
+                uploaderConf.sid=r && r.data && r.data.sid
+            });
 
 //图片压缩+上传
             $mod.on('change', function (e) {
