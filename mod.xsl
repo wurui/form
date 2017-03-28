@@ -10,6 +10,9 @@
                 <xsl:if test="$form/ajax">
                     <xsl:attribute name="data-ajax">true</xsl:attribute>
                 </xsl:if>
+                <xsl:if test="q/_id">
+                    <input type="hidden" name="_id" value="{q/_id}"/>
+                </xsl:if>
                 <ul>
                     <xsl:for-each select="$form/fields/i">
                         <li class="type-{type}">
