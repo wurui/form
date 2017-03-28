@@ -39,12 +39,9 @@
                     <type>file</type>
                 </i>
             </fields>
-            <action>
-                //oxm1.cc/img/fox.jpg
-            </action>
-            <method>
-                post
-            </method>
+            <action>//oxm1.cc/img/fox.jpg</action>
+            <method>post</method>
+            <ajax>true</ajax>
         </form>
     </data>
 

@@ -1,11 +1,15 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oxm="https://www.openxsl.com">
 
     <xsl:template match="/root" name="wurui.form">
+        <xsl:param name="forward_url"/>
         <!-- className 'J_OXMod' required  -->
         <xsl:variable name="form" select="data/form"/>
 
-        <div class="J_OXMod oxmod-form" ox-mod="form">
+        <div class="J_OXMod oxmod-form" ox-mod="form" data-forwardurl="{$forward_url}">
             <form method="{normalize-space($form/method)}" action="{normalize-space($form/action)}">
+                <xsl:if test="$form/ajax">
+                    <xsl:attribute name="data-ajax">true</xsl:attribute>
+                </xsl:if>
                 <ul>
                     <xsl:for-each select="$form/fields/i">
                         <li class="type-{type}">
