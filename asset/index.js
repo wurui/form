@@ -45,16 +45,21 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
             var batchUpload = function (fn) {
                 var data = {},
                     len = Object.keys(uploaders).length;
-                for (var k in uploaders) {
+                if(len){
+                    for (var k in uploaders) {
 
-                    uploaders[k].startUpload(function (e, r) {
-                        data[k] = r.urls;
-                        len--
-                        if (!len) {
-                            fn(data);
-                        }
-                    });
+                        uploaders[k].startUpload(function (e, r) {
+                            data[k] = r.urls;
+                            len--
+                            if (!len) {
+                                fn(data);
+                            }
+                        });
+                    }
+                }else{
+                    fn();
                 }
+
             }
             $('.J_submit', $mod).on('click', function () {
                 batchUpload(function (files) {
@@ -64,9 +69,12 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                         forwardurl=$mod.attr('data-forwardurl');
                     //var data=OXJS.formToJSON(f);
 
-                    for (var k in files) {
-                        f[k].value = files[k].toString()
+                    if(files){
+                        for (var k in files) {
+                            f[k].value = files[k].toString()
+                        }
                     }
+
 
                     if (!ajax) {
                         f.submit();
