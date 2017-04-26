@@ -41,6 +41,11 @@
                     <name>images</name>
                     <type>file</type>
                 </i>
+                <i>
+                    <label>手机号</label>
+                    <name>phone_no_v</name>
+                    <type>text</type>
+                </i>
             </fields>
             <action>//oxm1.cc/img/fox.jpg</action>
             <method>post</method>

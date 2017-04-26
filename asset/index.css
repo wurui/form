@@ -8,7 +8,7 @@
 .oxmod-form input,
 .oxmod-form button {
   width: 100%;
-  height: 30px;
+  height: 36px;
   border: solid 1px #ccc;
   border-radius: 5px;
   font-size: 14px;
@@ -48,6 +48,7 @@
   border-color: #09f;
   color: #fff;
   letter-spacing: 5px;
+  height: 40px;
 }
 .oxmod-form li.bottom button:hover {
   opacity: .8;
@@ -110,4 +111,28 @@
   margin-top: -25px;
   margin-left: -25px;
   position: absolute;
+}
+.oxmod-form .type-vcode {
+  font-size: 0;
+}
+.oxmod-form .type-vcode input[type="button"],
+.oxmod-form .type-vcode input[type="text"] {
+  font-size: 14px;
+}
+.oxmod-form .type-vcode input[type="button"] {
+  width: 40%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-appearance: none;
+  background-color: #f90;
+  color: #fff;
+}
+.oxmod-form .type-vcode input[type="button"]:disabled {
+  background-color: #ccc;
+}
+.oxmod-form .type-vcode input[type="text"] {
+  width: 60%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-style: none;
 }

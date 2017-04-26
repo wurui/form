@@ -16,24 +16,33 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
             $mod.on('change', function (e) {
 
                 var tar = e.target;
-
-                if (tar.type == 'file') {
-                    var name = tar.getAttribute('data-name');
-                    var uploader = uploaders[name];
-                    if (!uploader) {
-                        uploader = uploaders[name] = new Uploader(uploaderConf)
-                    }
-                    var file_id = tar.id;
-                    uploader.addToQ(tar.files, function (arr) {
-                        for (var i = 0; i < arr.length; i++) {
-                            $('label[for=' + file_id + ']').before(Mustache.render(tpl_imgfile, {
-                                id: arr[i]._id,
-                                src: arr[i]._data
-                            }));
+                switch (true){
+                    case tar.type == 'file':
+                        var name = tar.getAttribute('data-name');
+                        var uploader = uploaders[name];
+                        if (!uploader) {
+                            uploader = uploaders[name] = new Uploader(uploaderConf)
                         }
-                    });
-
+                        var file_id = tar.id;
+                        uploader.addToQ(tar.files, function (arr) {
+                            for (var i = 0; i < arr.length; i++) {
+                                $('label[for=' + file_id + ']').before(Mustache.render(tpl_imgfile, {
+                                    id: arr[i]._id,
+                                    src: arr[i]._data
+                                }));
+                            }
+                        });
+                        break
+                    case tar.name=='phone_no_v':
+                        if(/1\d{10}/.test(tar.value) && !tar.__hasvcode){
+                            tar.__hasvcode=true;
+                            var $li=$(tar).closest('li');
+                            $li.after('<li class="type-vcode"><input type="text" required="required" placeholder="验证码" name="sms_vcode"/><input data-role="sendvcode" class="J_sendvcode" type="button" value="发送验证码"/></li>')
+                        }
+                        break
                 }
+
+
             });
             $mod.on('click', '.J_Del', function (e) {
                 var span = e.target.parentNode,
@@ -41,6 +50,10 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                 var uploader = uploaders[name];
                 uploader.delFromQ(span.id);
                 $(span).remove();
+            });
+            $mod.on('click','.J_sendvcode',function(e){
+                var phoneInput=$('[name="phone_no_v"]');
+                console.log('sendmsg to...',phoneInput.val())
             });
             var batchUpload = function (fn) {
                 var data = {},

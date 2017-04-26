@@ -44,6 +44,7 @@
                             </xsl:choose>
                         </li>
                     </xsl:for-each>
+
                     <li class="bottom">
                         <button class="J_submit">提交</button>
                     </li>
