@@ -116,6 +116,7 @@
   font-size: 0;
 }
 .oxmod-form .type-vcode input[type="button"],
+.oxmod-form .type-vcode input[type="tel"],
 .oxmod-form .type-vcode input[type="text"] {
   font-size: 14px;
 }
@@ -130,6 +131,7 @@
 .oxmod-form .type-vcode input[type="button"]:disabled {
   background-color: #ccc;
 }
+.oxmod-form .type-vcode input[type="tel"],
 .oxmod-form .type-vcode input[type="text"] {
   width: 60%;
   border-top-right-radius: 0;

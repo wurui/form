@@ -8,7 +8,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                 sid: '2JOWSNPZMIYYV24GGI0YX13L',
                 oxm: $mod.attr('ox-mod')
             };
-            $.post('/login/templogin',{selector:"{}"},function(r){
+            $.post('https://www.openxsl.com/login/templogin',{selector:"{}"},function(r){
 
                 uploaderConf.sid=r && r.data && r.data.sid
             });
