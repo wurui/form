@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.4/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
@@ -8,10 +8,20 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                 sid: '2JOWSNPZMIYYV24GGI0YX13L',
                 oxm: $mod.attr('ox-mod')
             };
-            $.post('https://www.openxsl.com/login/templogin',{selector:"{}"},function(r){
 
-                uploaderConf.sid=r && r.data && r.data.sid
-            });
+            $.ajax({
+                url:'https://www.openxsl.com/login/templogin',
+                data:{selector:"{}"},
+                dataType:'json',
+                success:function(r){
+                    if(r.error) {
+                        alert(r.error)
+                    }else{
+                        uploaderConf.sid = r && r.data && r.data.sid
+                    }
+
+                }
+            })
 
 //图片压缩+上传
             $mod.on('change', function (e) {
