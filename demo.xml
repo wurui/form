@@ -11,7 +11,7 @@
         <icon>//oxm1.cc/img/app_default.png</icon>
     </p>
     <q>
-        <_id>123</_id>
+        <_id>j1yq1pk7-1iiu6x-0</_id>
     </q>
     <data>
         <form>
@@ -44,7 +44,7 @@
                 <i>
                     <label>手机号</label>
                     <name>phone_no_v</name>
-                    <type>text</type>
+                    <type>tel</type>
                 </i>
             </fields>
             <action>//oxm1.cc/img/fox.jpg</action>

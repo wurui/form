@@ -1,4 +1,5 @@
 define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], function (OXJS, Mustache, Uploader) {
+    var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
         init: function ($mod) {
@@ -34,10 +35,10 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                         });
                         break
                     case tar.name=='phone_no_v':
-                        if(/1\d{10}/.test(tar.value) && !tar.__hasvcode){
+                        if(regMobileNo.test(tar.value) && !tar.__hasvcode){
                             tar.__hasvcode=true;
                             var $li=$(tar).closest('li');
-                            $li.after('<li class="type-vcode"><input type="text" required="required" placeholder="验证码" name="sms_vcode"/><input data-role="sendvcode" class="J_sendvcode" type="button" value="发送验证码"/></li>')
+                            $li.after('<li class="type-vcode"><input type="tel" required="required" placeholder="验证码" name="sms_vcode"/><input data-role="sendvcode" class="J_sendvcode" type="button" value="发送验证码"/></li>')
                         }
                         break
                 }
@@ -52,8 +53,35 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.3/asset/main'], functi
                 $(span).remove();
             });
             $mod.on('click','.J_sendvcode',function(e){
-                var phoneInput=$('[name="phone_no_v"]');
-                console.log('sendmsg to...',phoneInput.val())
+                var f = $('form', $mod)[0];
+                var phoneNo= f.phone_no_v.value;
+                if(!regMobileNo.test(phoneNo)){
+                    return alert('手机号码不正确')
+                }
+                var activecode= (f.activecode && f.activecode.value)||'';
+                var apiHost = 'http://www.shaomachetie.com';
+                if(document.documentElement.getAttribute('env')=='local') {
+                    apiHost = 'http://192.168.1.103:8000'
+                }
+                $.getJSON(apiHost+'/carnotify/sendsms_vcode?_id='+ f._id.value+'&target='+phoneNo+'&activecode='+activecode+'&callback=?',function(r){
+
+                });
+                var btn=this,
+                    downcounter=59,
+                    originValue=btn.value;
+                btn.disabled=true;
+
+                btn.value='重新发送('+downcounter+'s)';
+
+                var IV=setInterval(function(){
+                    downcounter--;
+                    btn.value='重新发送('+downcounter+'s)'
+                    if(downcounter==0){
+                        clearInterval(IV);
+                        btn.value=originValue
+                        btn.disabled=false
+                    }
+                },1000)
             });
             var batchUpload = function (fn) {
                 var data = {},
