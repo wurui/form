@@ -13,6 +13,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.4/asset/main'], functi
                 url:'https://www.openxsl.com/login/templogin',
                 data:{selector:"{}"},
                 dataType:'json',
+                type:'post',
                 success:function(r){
                     if(r.error) {
                         alert(r.error)
