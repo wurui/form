@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.4/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.0/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
@@ -113,7 +113,11 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.4/asset/main'], functi
                 }
 
             }
-            $('.J_submit', $mod).on('click', function () {
+            $('.J_submit', $mod).on('click', function () {//todo:处理中加个效果,3张图片时上传还有点慢,有个5-10秒吧
+                this.disabled=true;
+                this.innerHTML='提交中...'
+                var btn=this;
+
                 batchUpload(function (files) {
                     var $f = $('form', $mod),
                         f = $f[0],
@@ -137,6 +141,8 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.0.4/asset/main'], functi
                             dataType: 'json',
                             success: function (r) {
                                 if (r.error) {
+                                    btn.disabled=false;
+                                    btn.innerHTML='提交'
                                     alert(r.error)
                                 } else {
                                     forwardurl && (location.href=forwardurl);

@@ -138,3 +138,7 @@
   border-bottom-right-radius: 0;
   border-right-style: none;
 }
+.oxmod-form button:disabled {
+  background-color: #666 !important;
+  color: #ccc !important;
+}
