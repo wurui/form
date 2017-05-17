@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.0/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
