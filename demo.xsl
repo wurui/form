@@ -9,7 +9,7 @@
         <title>form Demo</title>
         <link rel="stylesheet" type="text/css" href="https://oxm1.cc/css/ea.css" />
         <link rel="stylesheet" type="text/css" href="asset/index.css" />
-        <script src="https://oxm1.cc/js/require.js"></script>
+        <script src="https://a.oxm1.cc/js/require.js"></script>
       </head>
       <body>
         <div class="layout">
@@ -18,11 +18,11 @@
         <script><![CDATA[
           require.config({
             paths: {
-              zepto: 'https://oxm1.cc/js/zepto.min',
-              mustache: 'https://oxm1.cc/js/mustache',
-              oxjs:'https://oxm1.cc/js/oxjs'
+              zepto: 'https://a.oxm1.cc/js/zepto.min',
+              mustache: 'https://a.oxm1.cc/js/mustache',
+              oxjs:'https://a.oxm1.cc/js/oxjs'
             },
-            packages:[{name:"oxm",location:'https://oxm1.cc/oxm'}]
+            packages:[{name:"oxm",location:'https://a.oxm1.cc/oxm'}]
           });
           require(['zepto','oxjs','asset/index'],function(undefine,oxjs,Mod){
           Mod && Mod.init && Mod.init($('.J_OXMod'));

@@ -8,7 +8,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                 sid: '2JOWSNPZMIYYV24GGI0YX13L',
                 oxm: $mod.attr('ox-mod')
             };
-
+/*
             $.ajax({
                 url:'https://www.openxsl.com/login/templogin',
                 data:{selector:"{}"},
@@ -21,6 +21,13 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                         uploaderConf.sid = r && r.data && r.data.sid
                     }
 
+                }
+            });*/
+            $.getJSON('https://www.openxsl.com/login/templogin?callback=?',{selector:"{}"},function(r){
+                if(r.error) {
+                    alert(r.error)
+                }else{
+                    uploaderConf.sid = r && r.data && r.data.sid
                 }
             })
 
