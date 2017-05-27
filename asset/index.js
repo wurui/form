@@ -70,7 +70,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                     return alert('手机号码不正确')
                 }
                 var activecode= (f.activecode && f.activecode.value)||'';
-                var apiHost = 'http://www.shaomachetie.com';
+                var apiHost = 'https://www.shaomachetie.com';
                 if(document.documentElement.getAttribute('env')=='local') {
                     apiHost = 'http://192.168.1.103:8000'
                 }
