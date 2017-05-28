@@ -97,6 +97,27 @@
     background-size: contain;
     background-position: center center;
   }
+  &.submitting {
+    .imgpreview {
+      opacity: .7;
+      &:before {
+        content: '上传中...';
+        position: absolute;
+        z-index: 1;
+        color: red;
+        font-size: 13px;
+        margin-left: -25px;
+        margin-top: 30px;
+      }
+    }
+    .upload-done{
+      &:before {
+        content: '上传完成';
+        color: green;
+      }
+    }
+
+  }
   .input-file-trigger{
     text-align: center;
     &:before{

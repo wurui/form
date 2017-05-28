@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.2/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
@@ -23,7 +23,11 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
 
                 }
             });*/
-            $.getJSON('https://www.openxsl.com/login/templogin?callback=?',{selector:"{}"},function(r){
+            var openxslHost='https://www.openxsl.com';
+            if(document.documentElement.getAttribute('env')=='local') {
+                openxslHost = 'http://local.openxsl.com'
+            }
+            $.getJSON(openxslHost+'/login/templogin?callback=?',{selector:"{}"},function(r){
                 if(r.error) {
                     alert(r.error)
                 }else{
@@ -41,6 +45,9 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                         var uploader = uploaders[name];
                         if (!uploader) {
                             uploader = uploaders[name] = new Uploader(uploaderConf)
+                            uploaders[name].onUploadProgress=function(){
+                                $(tar).parent().children('.imgpreview:not(.upload-done)').eq(0).addClass('upload-done')
+                            }
                         }
                         var file_id = tar.id;
                         uploader.addToQ(tar.files, function (arr) {
@@ -62,7 +69,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                 }
 
 
-            });
+            });window.riouploaders=uploaders
             $mod.on('click', '.J_Del', function (e) {
                 var span = e.target.parentNode,
                     name = span.parentNode.getAttribute('data-name');
@@ -123,6 +130,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
             $('.J_submit', $mod).on('click', function () {//todo:处理中加个效果,3张图片时上传还有点慢,有个5-10秒吧
                 this.disabled=true;
                 this.innerHTML='提交中...'
+                $mod.addClass('submitting')
                 var btn=this;
 
                 batchUpload(function (files) {
@@ -150,6 +158,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.1/asset/main'], functi
                                 if (r.error) {
                                     btn.disabled=false;
                                     btn.innerHTML='提交'
+                                    $mod.removeClass('submitting')
                                     alert(r.error)
                                 } else {
                                     forwardurl && (location.href=forwardurl);

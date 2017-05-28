@@ -96,6 +96,22 @@
   background-size: contain;
   background-position: center center;
 }
+.oxmod-form.submitting .imgpreview {
+  opacity: .7;
+}
+.oxmod-form.submitting .imgpreview:before {
+  content: '上传中...';
+  position: absolute;
+  z-index: 1;
+  color: red;
+  font-size: 13px;
+  margin-left: -25px;
+  margin-top: 30px;
+}
+.oxmod-form.submitting .upload-done:before {
+  content: '上传完成';
+  color: green;
+}
 .oxmod-form .input-file-trigger {
   text-align: center;
 }
