@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.2/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.3/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo=/^1\d{10}$/ ;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>'
     return {
@@ -129,7 +129,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.2/asset/main'], functi
             }
             $('.J_submit', $mod).on('click', function () {//todo:处理中加个效果,3张图片时上传还有点慢,有个5-10秒吧
                 this.disabled=true;
-                this.innerHTML='提交中...'
+                this.innerHTML='提交中,请稍候...'
                 $mod.addClass('submitting')
                 var btn=this;
 
