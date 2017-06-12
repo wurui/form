@@ -23,15 +23,22 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.5/asset/main'], functi
 
                 }
             });*/
+            var storeKey='upload_sid';
+
             var openxslHost='https://www.openxsl.com';
             if(document.documentElement.getAttribute('env')=='local') {
                 openxslHost = 'http://local.openxsl.com'
             }
-            $.getJSON(openxslHost+'/login/templogin?callback=?',{selector:"{}"},function(r){
+            $.getJSON(openxslHost+'/login/templogin?callback=?',{
+                selector:JSON.stringify({
+                    sid:localStorage.getItem(storeKey)||''
+                })
+            },function(r){
                 if(r.error) {
                     alert(r.error)
                 }else{
                     uploaderConf.sid = r && r.data && r.data.sid
+                    localStorage.setItem(storeKey,uploaderConf.sid)
                 }
             })
 
@@ -69,7 +76,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.5/asset/main'], functi
                 }
 
 
-            });window.riouploaders=uploaders
+            });
             $mod.on('click', '.J_Del', function (e) {
                 var span = e.target.parentNode,
                     name = span.parentNode.getAttribute('data-name');
