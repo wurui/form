@@ -29,6 +29,7 @@
                     <label>理由</label>
                     <name>reason</name>
                     <type>select</type>
+                    <required>true</required>
                     <options>
                         <i>挡路</i>
                         <i>交通事故</i>

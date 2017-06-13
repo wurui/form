@@ -170,3 +170,6 @@
   background-color: #666 !important;
   color: #ccc !important;
 }
+.oxmod-form .error {
+  border: solid 1px red;
+}

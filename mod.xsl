@@ -19,6 +19,7 @@
                             <xsl:choose>
                                 <xsl:when test="type = 'select'">
                                     <select name="{name}">
+                                        <xsl:if test="required"><xsl:attribute name="required">required</xsl:attribute></xsl:if>
                                         <option value="">选择<xsl:value-of select="label"/>...
                                         </option>
                                         <xsl:for-each select="options/i">
@@ -39,7 +40,7 @@
                                     </div>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <input placeholder="{label}" name="{name}" type="{type}"/>
+                                    <input placeholder="{label}" name="{name}" type="{type}"><xsl:if test="required"><xsl:attribute name="required">required</xsl:attribute></xsl:if></input>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </li>
