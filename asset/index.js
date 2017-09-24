@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.5/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], function (OXJS, Mustache, Uploader) {
     var regMobileNo = /^1\d{10}$/;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>';
     var checkform=function(f){
@@ -15,42 +15,14 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.1.5/asset/main'], functi
         init: function ($mod) {
             var uploaders = {};
             var uploaderConf = {
-                sid: '2JOWSNPZMIYYV24GGI0YX13L',
                 oxm: $mod.attr('ox-mod')
             };
-            /*
-             $.ajax({
-             url:'https://www.openxsl.com/login/templogin',
-             data:{selector:"{}"},
-             dataType:'json',
-             type:'post',
-             success:function(r){
-             if(r.error) {
-             alert(r.error)
-             }else{
-             uploaderConf.sid = r && r.data && r.data.sid
-             }
-
-             }
-             });*/
-            var storeKey = 'upload_sid';
 
             var openxslHost = 'https://www.openxsl.com';
             if (document.documentElement.getAttribute('env') == 'local') {
                 openxslHost = 'http://local.openxsl.com'
             }
-            $.getJSON(openxslHost + '/login/templogin?callback=?', {
-                selector: JSON.stringify({
-                    sid: localStorage.getItem(storeKey) || ''
-                })
-            }, function (r) {
-                if (r.error) {
-                    alert(r.error)
-                } else {
-                    uploaderConf.sid = r && r.data && r.data.sid
-                    localStorage.setItem(storeKey, uploaderConf.sid)
-                }
-            })
+         
 
 //图片压缩+上传
             $mod.on('change', function (e) {
