@@ -160,7 +160,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.2/asset/main'], functi
                     } else {
                         $.ajax({
                             url: f.action,
-                            type: f.method,
+                            type: f.getAttribute('method'),//f.method 如果是put，则变成get
                             data: OXJS.formToJSON(f),
                             dataType: 'json',
                             success: function(r) {
