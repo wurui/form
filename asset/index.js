@@ -1,31 +1,33 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], function (OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.2/asset/main'], function(OXJS, Mustache, Uploader) {
     var regMobileNo = /^1\d{10}$/;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>';
-    var checkform=function(f){
-        var els = f.elements, el, i = 0;
+    var checkform = function(f) {
+        var els = f.elements,
+            el, i = 0;
         while (el = els[i++]) {
             if (el.name && el.getAttribute('required') && !el.value) {
                 return el;
-
             }
         }
-
     }
     return {
-        init: function ($mod) {
-            var uploaders = {};
-            var uploaderConf = {
-                oxm: $mod.attr('ox-mod')
-            };
-
-            var openxslHost = 'https://www.openxsl.com';
+        init: function($mod) {
+            var uploaders = {},
+                ds_id = $mod.attr('data-dsid'),
+                uploaderConf = {
+                    oxm: $mod.attr('ox-mod'),
+                    uid: $mod.attr('data-uid'),
+                    ds_id: ds_id
+                },
+                openxslHost = 'https://www.openxsl.com';
             if (document.documentElement.getAttribute('env') == 'local') {
                 openxslHost = 'http://local.openxsl.com'
             }
-         
+            var restSMS=OXJS.useREST('/sms/'+ds_id+'/ref/vcode').setDevHost('http://dev.openxsl.com/');
 
-//图片压缩+上传
-            $mod.on('change', function (e) {
+
+            //图片压缩+上传
+            $mod.on('change', function(e) {
 
                 var tar = e.target;
                 switch (true) {
@@ -34,12 +36,12 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
                         var uploader = uploaders[name];
                         if (!uploader) {
                             uploader = uploaders[name] = new Uploader(uploaderConf)
-                            uploaders[name].onUploadProgress = function () {
+                            uploaders[name].onUploadProgress = function() {
                                 $(tar).parent().children('.imgpreview:not(.upload-done)').eq(0).addClass('upload-done')
                             }
                         }
                         var file_id = tar.id;
-                        uploader.addToQ(tar.files, function (arr) {
+                        uploader.addToQ(tar.files, function(arr) {
                             for (var i = 0; i < arr.length; i++) {
                                 $('label[for=' + file_id + ']').before(Mustache.render(tpl_imgfile, {
                                     id: arr[i]._id,
@@ -59,35 +61,39 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
 
 
             });
-            $mod.on('click', '.J_Del', function (e) {
+            $mod.on('click', '.J_Del', function(e) {
                 var span = e.target.parentNode,
                     name = span.parentNode.getAttribute('data-name');
                 var uploader = uploaders[name];
                 uploader.delFromQ(span.id);
                 $(span).remove();
             });
-            $mod.on('click', '.J_sendvcode', function (e) {
+            $mod.on('click', '.J_sendvcode', function(e) {
                 var f = $('form', $mod)[0];
                 var phoneNo = f.phone_no_v.value;
                 if (!regMobileNo.test(phoneNo)) {
                     return alert('手机号码不正确')
                 }
                 var activecode = (f.activecode && f.activecode.value) || '';
+
+                //TODO: 改成新的通知接口
                 var apiHost = 'https://www.shaomachetie.com';
                 if (document.documentElement.getAttribute('env') == 'local') {
                     apiHost = 'http://192.168.1.103:8000'
                 }
-                $.getJSON(apiHost + '/carnotify/sendsms_vcode?_id=' + f._id.value + '&target=' + phoneNo + '&activecode=' + activecode + '&callback=?', function (r) {
+                restSMS.post({target:phoneNo})
+                /*
+                $.getJSON(apiHost + '/carnotify/sendsms_vcode?_id=' + f._id.value + '&target=' + phoneNo + '&activecode=' + activecode + '&callback=?', function(r) {
 
-                });
+                });*/
                 var btn = this,
-                    downcounter = 59,
+                    downcounter = 119,
                     originValue = btn.value;
                 btn.disabled = true;
 
                 btn.value = '重新发送(' + downcounter + 's)';
 
-                var IV = setInterval(function () {
+                var IV = setInterval(function() {
                     downcounter--;
                     btn.value = '重新发送(' + downcounter + 's)'
                     if (downcounter == 0) {
@@ -97,13 +103,13 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
                     }
                 }, 1000)
             });
-            var batchUpload = function (fn) {
+            var batchUpload = function(fn) {
                 var data = {},
                     len = Object.keys(uploaders).length;
                 if (len) {
                     for (var k in uploaders) {
 
-                        uploaders[k].startUpload(function (e, r) {
+                        uploaders[k].startUpload(function(e, r) {
                             data[k] = r.urls;
                             len--
                             if (!len) {
@@ -116,12 +122,12 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
                 }
 
             }
-            $('.J_submit', $mod).on('click', function () {
+            $('.J_submit', $mod).on('click', function() {
                 var $f = $('form', $mod),
                     f = $f[0],
-                    err_el=checkform(f);
-                if(err_el){
-                    $(err_el).addClass('error').one('change',function(){
+                    err_el = checkform(f);
+                if (err_el) {
+                    $(err_el).addClass('error').one('change', function() {
                         $(this).removeClass('error')
                     });
 
@@ -135,7 +141,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
                 $mod.addClass('before-submitting')
                 var btn = this;
 
-                batchUpload(function (files) {
+                batchUpload(function(files) {
                     var ajax = !!$f.attr('data-ajax'),
                         forwardurl = $mod.attr('data-forwardurl');
                     //var data=OXJS.formToJSON(f);
@@ -157,14 +163,15 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.0/asset/main'], functi
                             type: f.method,
                             data: OXJS.formToJSON(f),
                             dataType: 'json',
-                            success: function (r) {
-                                if (r.error) {
+                            success: function(r) {
+                                if (r && r.code==0) {
+                                    forwardurl && (location.href = forwardurl);
+                                    
+                                } else {
                                     btn.disabled = false;
                                     btn.innerHTML = '提交'
                                     $mod.removeClass('submitting')
-                                    alert(r.error)
-                                } else {
-                                    forwardurl && (location.href = forwardurl);
+                                    alert(r && r.message||'Unknown Error')
                                 }
                             }
                         })
