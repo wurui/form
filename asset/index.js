@@ -1,4 +1,4 @@
-define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.2/asset/main'], function(OXJS, Mustache, Uploader) {
+define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.3/asset/main'], function(OXJS, Mustache, Uploader) {
     var regMobileNo = /^1\d{10}$/;
     var tpl_imgfile = '<span id="{{id}}" class="imgpreview" style="background-image:url({{src}});"><b class="J_Del btn-x">&times;</b></span>';
     var checkform = function(f) {
@@ -13,17 +13,17 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.2/asset/main'], functi
     return {
         init: function($mod) {
             var uploaders = {},
-                ds_id = $mod.attr('data-dsid'),
+               // ds_id = $mod.attr('data-dsid'),
                 uploaderConf = {
                     oxm: $mod.attr('ox-mod'),
                     uid: $mod.attr('data-uid'),
-                    ds_id: ds_id
+                   // ds_id: ds_id
                 },
                 openxslHost = 'https://www.openxsl.com';
             if (document.documentElement.getAttribute('env') == 'local') {
                 openxslHost = 'http://local.openxsl.com'
             }
-            var restSMS=OXJS.useREST('/sms/'+ds_id+'/ref/vcode').setDevHost('http://dev.openxsl.com/');
+            var restSMS=OXJS.useREST('sms').setDevHost('http://dev.openxsl.com/');
 
 
             //图片压缩+上传
@@ -81,7 +81,7 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.2/asset/main'], functi
                 if (document.documentElement.getAttribute('env') == 'local') {
                     apiHost = 'http://192.168.1.103:8000'
                 }
-                restSMS.post({target:phoneNo})
+                restSMS.get({target:phoneNo,smsconfig:'vcode'})
                 /*
                 $.getJSON(apiHost + '/carnotify/sendsms_vcode?_id=' + f._id.value + '&target=' + phoneNo + '&activecode=' + activecode + '&callback=?', function(r) {
 

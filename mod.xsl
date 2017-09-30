@@ -41,7 +41,7 @@
                                     </div>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <input placeholder="{label}" name="{name}" type="{type}"><xsl:if test="required"><xsl:attribute name="required">required</xsl:attribute></xsl:if></input>
+                                    <input placeholder="{label}" name="{name}" type="{type}" value="{value}"><xsl:if test="required"><xsl:attribute name="required">required</xsl:attribute></xsl:if></input>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </li>
