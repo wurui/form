@@ -2,11 +2,10 @@
 
     <xsl:template match="/root" name="wurui.form">
         <xsl:param name="forward_url"/>
-        <xsl:param name="dsid">e0ee59439b39fcc3</xsl:param>
         <!-- className 'J_OXMod' required  -->
         <xsl:variable name="form" select="data/form"/>
 
-        <div class="J_OXMod oxmod-form" ox-mod="form" data-forwardurl="{$forward_url}" data-uid="{login/uid}" data-dsid="{$dsid}">
+        <div class="J_OXMod oxmod-form" ox-mod="form" data-forwardurl="{$forward_url}" data-uid="{login/uid}">
             <form method="{normalize-space($form/method)}" action="{normalize-space($form/action)}">
                 <xsl:if test="boolean($form/ajax)">
                     <xsl:attribute name="data-ajax">true</xsl:attribute>

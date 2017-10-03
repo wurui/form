@@ -13,11 +13,9 @@ define(['oxjs', 'mustache', 'oxm/wurui/image-uploader/0.2.3/asset/main'], functi
     return {
         init: function($mod) {
             var uploaders = {},
-               // ds_id = $mod.attr('data-dsid'),
                 uploaderConf = {
                     oxm: $mod.attr('ox-mod'),
                     uid: $mod.attr('data-uid'),
-                   // ds_id: ds_id
                 },
                 openxslHost = 'https://www.openxsl.com';
             if (document.documentElement.getAttribute('env') == 'local') {
