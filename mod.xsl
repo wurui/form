@@ -4,6 +4,7 @@
         <xsl:param name="forward_url"/>
         <!-- className 'J_OXMod' required  -->
         <xsl:variable name="form" select="data/form"/>
+        
 
         <div class="J_OXMod oxmod-form" ox-mod="form" data-forwardurl="{$forward_url}" data-uid="{login/uid}">
             <form method="{normalize-space($form/method)}" action="{normalize-space($form/action)}">
